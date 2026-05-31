@@ -1,29 +1,7 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: wordpress
-  namespace: argocd
-spec:
-  project: default
-  source:
-    chart: wordpress
-    repoURL: https://charts.bitnami.com/bitnami
-    targetRevision: 23.1.25 # Zdefiniuj preferowaną wersję chartu
-    helm:
-      parameters:
-        - name: wordpressUsername
-          value: admin
-        - name: wordpressPassword
-          value: SilneHaslo123!
-        - name: mariadb.auth.rootPassword
-          value: HasloBazyDanych123!
-        - name: service.type
-          value: LoadBalancer
-  destination:
-    server: https://default.svc
-    namespace: wordpress
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    createNamespace: true
+wordpressUsername: admin
+wordpressPassword: "MojeSilneHaslo123!" # Użyj cudzysłowu dla bezpieczeństwa stringów
+service:
+  type: LoadBalancer
+mariadb:
+  auth:
+    rootPassword: "HasloBazyDanych123!"
